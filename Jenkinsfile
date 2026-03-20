@@ -25,14 +25,16 @@ pipeline {
         stage(setup environment) {
             steps {
                 script {
-                    if (params.environment) {
-                        environment = params.environment
-                    }
-                    if (params.app-Version) {
-                        appVersion = params.app-Version
-                    }
-                    echo "Deployment Environment: ${environment}"
-                    echo "Application Version: ${appVersion}"
+                    environment = params.environment
+                    appVersion = params.app-Version
+                    // if (params.environment) {
+                    //     environment = params.environment
+                    // }
+                    // if (params.app-Version) {
+                    //     appVersion = params.app-Version
+                    // }
+                    // echo "Deployment Environment: ${environment}"
+                    // echo "Application Version: ${appVersion}"
                 }
             }
         }
