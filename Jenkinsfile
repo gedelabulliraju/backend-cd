@@ -9,7 +9,7 @@ pipeline {
     parameters {
        // booleanParams(name: "deploy", defaultValue: false, description: "Deploy to production?")
         choice(name: "environment", choices: ["dev", "qa", "uat","pre-prod","prod"], description: "Select the deployment environment")
-        string(name: "app-Version", description: "Application version to deploy")
+        string(name: "Version", description: "Application version to deploy")
     }
     environment { 
         appVersion = '' // Can be set dynamically during the pipeline
@@ -26,7 +26,7 @@ pipeline {
             steps {
                 script {
                     environment = params.environment
-                    appVersion = params.app-Version
+                    appVersion = params.Version
                     // if (params.environment) {
                     //     environment = params.environment
                     // }
