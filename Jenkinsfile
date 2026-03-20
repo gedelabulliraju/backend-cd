@@ -22,7 +22,7 @@ pipeline {
 
    
     stages {
-        stage( setup environment) {
+        stage(setup environment) {
             steps {
                 script {
                     if (params.environment) {
