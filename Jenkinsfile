@@ -7,7 +7,7 @@ pipeline {
         disableConcurrentBuilds() // Prevent concurrent builds
     }
     parameters {
-        booleanParams(name: "deploy", defaultValue: false, description: "Deploy to production?")
+       // booleanParams(name: "deploy", defaultValue: false, description: "Deploy to production?")
         choice(name: "environment", choices: ["dev", "qa", "uat","pre-prod","prod"], description: "Select the deployment environment")
         string(name: "app-Version", description: "Application version to deploy")
     }
@@ -37,9 +37,6 @@ pipeline {
             }
         }
         stage('Deploy') {
-            when {
-                expression { return params.deploy }
-            }
             steps {
                 withAWS(region: 'us-east-1', credentials: 'aws-creds') {
                     sh """
