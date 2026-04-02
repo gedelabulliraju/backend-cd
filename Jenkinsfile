@@ -10,7 +10,7 @@ pipeline {
        // booleanParams(name: "deploy", defaultValue: false, description: "Deploy to production?")
         choice(name: "ENVIRONMENT", choices: ["dev", "qa", "uat","pre-prod","prod"], description: "Select the deployment environment")
         string(name: "Version", description: "Application version to deploy")
-        string(name: "jira-id, description: "JIRA ID for tracking deployment")
+        string(name: "jira-id", description: "JIRA ID for tracking deployment")
     }
     environment { 
         appVersion = '' // Can be set dynamically during the pipeline
