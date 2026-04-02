@@ -8,7 +8,7 @@ pipeline {
     }
     parameters {
        // booleanParams(name: "deploy", defaultValue: false, description: "Deploy to production?")
-        choice(name: "environment", choices: ["dev", "qa", "uat","pre-prod","prod"], description: "Select the deployment environment")
+        choice(name: "ENVIRONMENT", choices: ["dev", "qa", "uat","pre-prod","prod"], description: "Select the deployment environment")
         string(name: "Version", description: "Application version to deploy")
     }
     environment { 
@@ -25,7 +25,7 @@ pipeline {
         stage('setup environment') {
             steps {
                 script {
-                    environment = params.environment
+                    environment = params.ENVIRONMENT
                     appVersion = params.Version
                     account_id = pipelineGlobals.getAccountId(environment)
                     // if (params.environment) {
