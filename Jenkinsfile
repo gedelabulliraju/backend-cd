@@ -13,10 +13,10 @@ pipeline {
     }
     environment { 
         appVersion = '' // Can be set dynamically during the pipeline
-        account_id = "528564298423"
+        account_id = ''
         region = "us-east-1"
         project = "expense"
-        environment = ""
+        environment = ''
         component = "backend"
     }
 
@@ -27,6 +27,7 @@ pipeline {
                 script {
                     environment = params.environment
                     appVersion = params.Version
+                    account_id = pipelineGlobals.getAccountId(environment)
                     // if (params.environment) {
                     //     environment = params.environment
                     // }
