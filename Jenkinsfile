@@ -10,13 +10,14 @@ pipeline {
        // booleanParams(name: "deploy", defaultValue: false, description: "Deploy to production?")
         choice(name: "ENVIRONMENT", choices: ["dev", "qa", "uat","pre-prod","prod"], description: "Select the deployment environment")
         string(name: "Version", description: "Application version to deploy")
+        string(name: "jira-id, description: "JIRA ID for tracking deployment")
     }
     environment { 
         appVersion = '' // Can be set dynamically during the pipeline
         account_id = ''
         region = "us-east-1"
         project = "expense"
-        environment = 'dev'
+        environment = ''
         component = "backend"
     }
 
@@ -37,6 +38,33 @@ pipeline {
                     // echo "Deployment Environment: ${environment}"
                     // echo "Application Version: ${appVersion}"
                 }
+            }
+        }
+        stage('Integration Tests') {
+            when {
+                expression {params.ENVIRONMENT == 'qa'}
+            }
+            steps{
+                script {
+                    echo "Running integration tests for ${environment} environment"
+                    // Add your integration test commands here
+                }
+
+            }
+        }
+        stage('Check JIRA') {
+             when {
+                expression {params.ENVIRONMENT == 'prod'}
+            }
+            steps{
+                script {
+                    sh"""
+                        echo "Checking JIRA for open issues related to ${component} in ${environment} environment"
+                        echo "Check jira deployment window for any open issues before proceeding with deployment"
+                        echo "fail pipeline if above two are not true"
+                    """
+                }
+
             }
         }
         stage('Deploy') {
